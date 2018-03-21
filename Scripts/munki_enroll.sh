@@ -17,8 +17,8 @@ ADMINACCOUNT="YOURLOCALADMINACCOUNT"
 #######################
 
 # Make sure there is an active Internet connection
-SHORTURL=$(echo "$SUBMITURL" | awk -F/ '{print $3}')
-PINGTEST=$(ping -o -t 4 "$SHORTURL" | grep "64 bytes")
+SHORTURL=$(/bin/echo "$SUBMITURL" | /usr/bin/awk -F/ '{print $3}')
+PINGTEST=$(/sbin/ping -o -t 4 "$SHORTURL" | /usr/bin/grep "64 bytes")
 
 if [ ! -z "$PINGTEST" ]; then
 
@@ -26,7 +26,7 @@ if [ ! -z "$PINGTEST" ]; then
    SERIAL=$(/usr/sbin/system_profiler SPHardwareDataType | /usr/bin/awk '/Serial Number/ { print $4; }')
 
    # Determine if it's a laptop or a desktop
-   LAPTOPMODEL=$(/usr/sbin/system_profiler SPHardwareDataType | /usr/bin/grep "Model Identifier" | /usr/bin/grep "Book" | awk -F ": " '{print $2}')
+   LAPTOPMODEL=$(/usr/sbin/system_profiler SPHardwareDataType | /usr/bin/grep "Model Identifier" | /usr/bin/grep "Book" | /usr/bin/awk -F ": " '{print $2}')
 
    # If it's a desktop...
    if [ -z "$LAPTOPMODEL" ]; then
@@ -46,7 +46,7 @@ if [ ! -z "$PINGTEST" ]; then
       # Get the primary user
       PRIMARYUSER=''
       # This is a little imprecise, because it's basically going by process of elimination, but that will pretty much work for the setup we have
-      cd /Users
+      /usr/bin/cd /Users
       for u in *; do
          if [ "$u" != "Guest" ] && [ "$u" != "Shared" ] && [ "$u" != "root" ] && [ "$u" != "$ADMINACCOUNT" ]; then
             PRIMARYUSER="$u"
@@ -81,9 +81,9 @@ if [ ! -z "$PINGTEST" ]; then
 
    # Delete the ClientIdentifier, since we'll be using the serial number
    function deleteClientIdentifier {
-      clientIdentifier=$(defaults read "$1" | grep "ClientIdentifier")
+      clientIdentifier=$(/usr/bin/defaults read "$1" | /usr/bin/grep "ClientIdentifier")
       if [ ! -z "$clientIdentifier" ]; then
-         sudo /usr/bin/defaults delete "$1" ClientIdentifier
+         /usr/bin/defaults delete "$1" ClientIdentifier
       fi 
    }
    
