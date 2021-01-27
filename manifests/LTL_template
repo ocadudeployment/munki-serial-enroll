@@ -4,13 +4,13 @@
 <dict>
 	<key>catalogs</key>
 	<array>
-		<string>NAMEOFCATALOG</string>
+		<string>production</string>
 	</array>
 	<key>display_name</key>
 	<string>DISPLAYNAMETOREPLACE</string>
 	<key>included_manifests</key>
 	<array>
-		<string>INCLUDEDMANIFEST</string>
+		<string>ALL-Long-Term-Loaners</string>
 	</array>
 </dict>
 </plist>
